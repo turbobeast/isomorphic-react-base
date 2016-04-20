@@ -14,6 +14,10 @@ const app = express();
 const port = process.env.PORT || 8080;
 app.use('/public', express.static( path.join(__dirname, 'public') ) );
 
+app.get('/favicon.ico', (req, res) => {
+  res.end();
+});
+
 app.get("*", (req, res) => {
   match({ routes: routes, location: req.url }, (err, redirect, props) => {
     if(err) {

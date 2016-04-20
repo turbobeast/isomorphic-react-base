@@ -22,3 +22,9 @@ Serve.
 ```shell
 npm start
 ```
+
+Lint.
+
+```shell
+npm run lint
+```

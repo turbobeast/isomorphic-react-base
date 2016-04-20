@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Route } from 'react-router';
 import App from '../modules/app';
 import Projects from '../modules/projects';
 import About from '../modules/about';

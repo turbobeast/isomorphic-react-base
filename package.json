@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "lint": "./node_modules/eslint/bin/eslint.js ./src/**/*.js",
     "css": "sass src/css/main.scss public/css/main.css",
     "js": "browserify src/js/main.js -o public/js/main.js -t [ babelify --presets [ es2015 react ] ]",
     "build": "npm run css && npm run js",
@@ -22,5 +23,10 @@
     "react-dom": "^0.14.7",
     "react-router": "^2.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^2.8.0",
+    "eslint-config-airbnb": "^7.0.0",
+    "eslint-plugin-jsx-a11y": "0.6.2",
+    "eslint-plugin-react": "^5.0.1"
+  }
 }

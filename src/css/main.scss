@@ -1,0 +1,27 @@
+html, body, div, footer, header, section, article, p, h1, h2, h3, h4, h5, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  img {
+    border: none;
+  }
+}
+
+ul, li {
+  list-style:none;
+}
+
+.top-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background: #eee;
+}

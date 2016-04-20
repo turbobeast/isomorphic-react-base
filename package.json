@@ -1,10 +1,12 @@
 {
-  "name": "betelgeuse",
+  "name": "isomorphic-react-base",
   "version": "0.0.1",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "browserify src/js/main.js -o public/js/main.js -t [ babelify --presets [ es2015 react ] ]",
+    "css": "sass src/css/main.scss public/css/main.css",
+    "js": "browserify src/js/main.js -o public/js/main.js -t [ babelify --presets [ es2015 react ] ]",
+    "build": "npm run css && npm run js",
     "start": "browserify server.js --node -t [ babelify --presets [ es2015 react ] ] | node"
   },
   "author": "George Michael Faust <georgemichaelfaust@gmail.com> (http://georgemichaelfaust.com/)",

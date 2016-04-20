@@ -3,6 +3,7 @@ module.exports = appHTML => (
   <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <link href='/public/css/main.css' rel='stylesheet' type='text/css' />
     <title></title>
   </head>
   <body>

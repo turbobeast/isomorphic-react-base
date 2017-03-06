@@ -1,9 +1,9 @@
-import React from 'react';
-import { Route } from 'react-router';
-import App from '../modules/app';
-import Projects from '../modules/projects';
-import About from '../modules/about';
-import Contact from '../modules/contact';
+import React from 'react'
+import { Route } from 'react-router'
+import App from '../containers/app'
+import Projects from '../modules/projects'
+import About from '../modules/about'
+import Contact from '../modules/contact'
 
 const routes = (
   <Route path="/" component={App}>
@@ -11,6 +11,6 @@ const routes = (
     <Route path="/about" component={About} />
     <Route path="/contact" component={Contact} />
   </Route>
-);
+)
 
-export default routes;
+export default routes

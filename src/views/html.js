@@ -1,10 +1,10 @@
-module.exports = appHTML => (
+module.exports = (appHTML, initialState) => (
   `<!doctype html>
   <html lang="en">
   <head>
     <meta charset="utf-8" />
     <link href='/public/css/main.css' rel='stylesheet' type='text/css' />
-    <title></title>
+    <title>${initialState.title}</title>
   </head>
   <body>
     <div id="app">${appHTML}</div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router'
+import { Route } from 'react-router-dom'
 import App from '../containers/app'
 import Projects from '../modules/projects'
 import About from '../modules/about'

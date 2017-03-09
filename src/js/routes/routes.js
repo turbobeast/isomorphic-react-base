@@ -5,12 +5,13 @@ import Projects from '../modules/projects'
 import About from '../modules/about'
 import Contact from '../modules/contact'
 
-const routes = (
-  <Route path="/" component={App}>
+const Routes = () => (
+  <div>
+    <Route path='/' component={App} />
     <Route path="/projects" component={Projects} />
     <Route path="/about" component={About} />
     <Route path="/contact" component={Contact} />
-  </Route>
+  </div>
 )
 
-export default routes
+export default Routes

@@ -7,12 +7,12 @@ const React = require('react')
 const path = require('path')
 const express = require('express')
 const { renderToString } = require('react-dom/server')
-const { StaticRouter } = require('react-router')
+const { StaticRouter, Route} = require('react-router')
 const { Provider } = require('react-redux')
 
 const App = require('./src/js/containers/app').default
 const { store } = require('./src/js/store')
-const routes = require('./src/js/routes/routes')
+const Routes = require('./src/js/routes/routes').default
 const PageTemplate = require('./src/views/html')
 
 
@@ -26,46 +26,17 @@ app.get('/favicon.ico', (req, res) => {
 })
 
 function handleRender (req, res) {
-  
   const preloadState = store.getState()
   const context = {} // createServerRenderContext()
   const html = renderToString(
-    /*<Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
-        <App />
-      </StaticRouter>
-    </Provider>*/
     React.createElement(Provider, { store }, 
       React.createElement(StaticRouter, { location: req.url, context },
-        React.createElement(App)
+        React.createElement(Routes)
       )
     )
   )
   
   res.send(PageTemplate(html, preloadState))
-  // match({ routes: routes, location: req.url }, (err, redirect, props) => {
-  //   if(err) {
-  //     return res.send(err);
-  //   }
-
-  //   console.log(arguments)
-  //   res.send('poop')
-
-  //   // const html = renderToString (
-  //   //   React.createElement(Provider, { store },
-  //   //     React.createElement(RouterContext),
-  //   //     {
-  //   //       router: props.router,
-  //   //       location: props.location,
-  //   //       routes: props.routes,
-  //   //       params: props.params,
-  //   //       components: props.components
-  //   //     }
-  //   //   )
-  //   // )
-
-  //   // res.send(PageTemplate(html, preloadState))
-  // });
 }
 
 

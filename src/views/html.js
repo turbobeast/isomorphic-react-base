@@ -9,6 +9,9 @@ module.exports = (appHTML, initialState) => (
   <body>
     <div id="app">${appHTML}</div>
   </body>
+  <script>
+    window.__GLOBAL_INITIAL_STATE__ = ${JSON.stringify(initialState)}
+  </script>
   <script src="/public/js/main.js"></script>
   </html>
   `

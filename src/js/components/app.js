@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 const { Link } = require('react-router-dom')
-import Projects from '../modules/projects'
-import About from '../modules/about'
-import Contact from '../modules/contact'
+import Projects from './projects'
+import About from './about'
+import Contact from './contact'
 
-export function App({ pages, children }) {
+export function App({ pages }) {
   return (
     <div>
       <h1>Isomorphic App</h1>
@@ -20,9 +20,8 @@ export function App({ pages, children }) {
     )
 }
 
-export default connect(({ pages }, { children }) => ({ pages, children }))(App)
+export default connect(({ pages }) => ({ pages }))(App)
 
-// App.propTypes = {
-//   children: PropTypes.element.isRequired,
-//   pages: PropTypes.array.isRequired,
-// }
+App.propTypes = {
+  pages: PropTypes.array.isRequired,
+}

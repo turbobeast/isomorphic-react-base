@@ -1,6 +1,8 @@
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { pages } from '../reducers/pages'
 import { title } from '../reducers/title'
+import { posts } from '../reducers/posts'
+import thunk from 'redux-thunk'
 
 let initialState
 
@@ -11,4 +13,7 @@ try {
   initialState = undefined
 }
 
-export const store = createStore(combineReducers({ title, pages }), initialState)
+export const store = createStore(
+  combineReducers({ title, pages, posts }),
+  initialState,
+  applyMiddleware(thunk))

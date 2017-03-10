@@ -6,7 +6,7 @@ import Projects from './projects'
 import About from './about'
 import Contact from './contact'
 
-export function App({ pages }) {
+function App({ pages }) {
   return (
     <div>
       <h1>Isomorphic App</h1>

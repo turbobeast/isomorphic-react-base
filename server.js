@@ -16,9 +16,8 @@ const PageTemplate = require('./src/views/html')
 const app = express();
 const port = 8080;
 
-function handleRender (req, res) {
-  const preloadState = store.getState()
-
+function bootstrap (path, store) {
+  const { createElement } = React
   /*
     <Provider store={store}>
       <Router>
@@ -26,16 +25,35 @@ function handleRender (req, res) {
       </Router>
     </Provider>
   */
-  const { createElement } = React
+
   const reactEntryPoint =
     createElement(Provider, { store },
-      createElement(StaticRouter, { location: req.url, context: {} },
+      createElement(StaticRouter, { location: path, context: {} },
         createElement(Route, { path: '/', component: App })
       )
     )
+  
+  return renderToString(reactEntryPoint)
+}
 
-  const html = renderToString(reactEntryPoint)
-  res.send(PageTemplate(html, preloadState))
+function handleRender (req, res) {
+  console.log('handleRender')
+  let html
+
+  let unsubscribe = store.subscribe(() => {    
+    let state = store.getState()
+    console.log(state.posts.pending)
+
+    if (!state.posts.pending) {
+      unsubscribe()
+      let html = bootstrap(req.url, store)
+      res.send(PageTemplate(html, state))
+    }
+  })
+
+  // start the redux ball rolling
+  bootstrap(req.url, store)
+  store.dispatch({ type: 'SERVER_REQUEST' })
 }
 
 app.use('/public', express.static( path.join(__dirname, 'public') ) )

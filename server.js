@@ -18,13 +18,23 @@ const port = 8080;
 
 function handleRender (req, res) {
   const preloadState = store.getState()
-  const html = renderToString(
+
+  /*
+    <Provider store={store}>
+      <Router>
+        <Route path='/' component={App} />
+      </Router>
+    </Provider>
+  */
+
+  const reactEntryPoint =
     React.createElement(Provider, { store }, 
       React.createElement(StaticRouter, { location: req.url, context: {} },
-        React.createElement(Route, {}, React.createElement(App))
+        React.createElement(Route, { path: '/', component: App })
       )
     )
-  )
+
+  const html = renderToString(reactEntryPoint)
   res.send(PageTemplate(html, preloadState))
 }
 

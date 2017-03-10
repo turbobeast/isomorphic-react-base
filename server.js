@@ -10,9 +10,9 @@ const { renderToString } = require('react-dom/server')
 const { StaticRouter, Route} = require('react-router')
 const { Provider } = require('react-redux')
 
-const App = require('./src/js/containers/app').default
+const App = require('./src/js/components/app').default
 const { store } = require('./src/js/store')
-const Routes = require('./src/js/routes/routes').default
+// const Routes = require('./src/js/routes/routes').default
 const PageTemplate = require('./src/views/html')
 
 const app = express();
@@ -30,7 +30,7 @@ function handleRender (req, res) {
   const html = renderToString(
     React.createElement(Provider, { store }, 
       React.createElement(StaticRouter, { location: req.url, context: {} },
-        React.createElement(Routes)
+        React.createElement(App)
       )
     )
   )

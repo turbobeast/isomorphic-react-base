@@ -8,7 +8,7 @@ export function App({ pages, children }) {
     <div>
       <h1>Isomorphic App</h1>
       {<ul role="Navigation" className="nav">
-        {pages.map((page) => <li key={page.key}><Link to={page.title}>{page.title}</Link></li>)}
+        {pages.map((page) => <li key={page.key}><Link to={page.path}>{page.title}</Link></li>)}
       </ul>}
     </div>
     )

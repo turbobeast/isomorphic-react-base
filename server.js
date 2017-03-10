@@ -15,7 +15,6 @@ const { store } = require('./src/js/store')
 const Routes = require('./src/js/routes/routes').default
 const PageTemplate = require('./src/views/html')
 
-
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -27,10 +26,10 @@ app.get('/favicon.ico', (req, res) => {
 
 function handleRender (req, res) {
   const preloadState = store.getState()
-  const context = {} // createServerRenderContext()
+  const context = {}
   const html = renderToString(
     React.createElement(Provider, { store }, 
-      React.createElement(StaticRouter, { location: req.url, context },
+      React.createElement(StaticRouter, { location: req.url, context: {} },
         React.createElement(Routes)
       )
     )

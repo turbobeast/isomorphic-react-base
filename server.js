@@ -6,7 +6,7 @@ const React = require('react')
 const path = require('path')
 const express = require('express')
 const { renderToString } = require('react-dom/server')
-const { StaticRouter } = require('react-router')
+const { StaticRouter, Route } = require('react-router')
 const { Provider } = require('react-redux')
 
 const App = require('./src/js/components/app').default
@@ -21,11 +21,11 @@ function handleRender (req, res) {
   const html = renderToString(
     React.createElement(Provider, { store }, 
       React.createElement(StaticRouter, { location: req.url, context: {} },
-        React.createElement(App)
+        React.createElement(Route, {}, React.createElement(App))
       )
     )
   )
-  
+
   res.send(PageTemplate(html, preloadState))
 }
 

@@ -1,9 +1,9 @@
 import * as actions from '../actions'
 
 const defaultState = [
-  { key: 'about', title: 'About' },
-  { key: 'contact', title: 'Contact' },
-  { key: 'projects', title: 'Projects' },
+  { key: 'about', title: 'About', path: '/About' },
+  { key: 'contact', title: 'Contact', path: '/Contact' },
+  { key: 'projects', title: 'Projects', path: '/Projects' },
 ]
 
 export const pages = (state = defaultState, action) => {

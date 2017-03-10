@@ -1,46 +1,45 @@
-require('dotenv').config({silent: true})
+require('babel-register')({
+  extensions: ['.js']
+})
 
-import React from 'react'
-import path from 'path'
-import express from 'express'
-import { renderToString } from 'react-dom/server'
-import { match, RouterContext } from 'react-router'
-import { Provider } from 'react-redux'
+const React = require('react')
+const path = require('path')
+const express = require('express')
+const { renderToString } = require('react-dom/server')
+const { StaticRouter, Route } = require('react-router')
+const { Provider } = require('react-redux')
 
-import App from './src/js/containers/app'
-import { store } from './src/js/store'
-import routes from './src/js/routes/routes'
-import PageTemplate from './src/views/html'
+const App = require('./src/js/components/app').default
+const { store } = require('./src/js/store')
+const PageTemplate = require('./src/views/html')
 
 const app = express();
-const port = process.env.PORT || 8080;
-
-app.use('/public', express.static( path.join(__dirname, 'public') ) )
-
-app.get('/favicon.ico', (req, res) => {
-  res.end()
-})
+const port = 8080;
 
 function handleRender (req, res) {
-  
   const preloadState = store.getState()
-  match({ routes: routes, location: req.url }, (err, redirect, props) => {
-    if(err) {
-      return res.send(err);
-    }
 
-    const html = renderToString (
-      <Provider store={store}>
-        <RouterContext {...props} />
-      </Provider>)
+  /*
+    <Provider store={store}>
+      <Router>
+        <Route path='/' component={App} />
+      </Router>
+    </Provider>
+  */
+  const { createElement } = React
+  const reactEntryPoint =
+    createElement(Provider, { store },
+      createElement(StaticRouter, { location: req.url, context: {} },
+        createElement(Route, { path: '/', component: App })
+      )
+    )
 
-    res.send(PageTemplate(html, preloadState))
-  });
+  const html = renderToString(reactEntryPoint)
+  res.send(PageTemplate(html, preloadState))
 }
 
-
+app.use('/public', express.static( path.join(__dirname, 'public') ) )
+app.get('/favicon.ico', (req, res) => { res.end() })
 app.use(handleRender)
 
-app.listen(port, () => {
-  console.log('app listening on port ' + port)
-})
+app.listen(port, () => { console.log('app listening on port ' + port) })

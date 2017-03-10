@@ -1,12 +1,14 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Provider } from 'redux'
-import routes from './routes/routes'
-import { Router, browserHistory } from 'react-router'
+import { Provider } from 'react-redux'
+import App from './components/app'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { store } from './store'
 
 render((
   <Provider store={store}>
-    <Router history={browserHistory} routes={routes} />
+    <Router>
+      <Route path='/' component={App} />
+    </Router>
   </Provider>
 ), document.getElementById('app'))

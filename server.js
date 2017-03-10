@@ -26,11 +26,11 @@ function handleRender (req, res) {
       </Router>
     </Provider>
   */
-
+  const { createElement } = React
   const reactEntryPoint =
-    React.createElement(Provider, { store }, 
-      React.createElement(StaticRouter, { location: req.url, context: {} },
-        React.createElement(Route, { path: '/', component: App })
+    createElement(Provider, { store },
+      createElement(StaticRouter, { location: req.url, context: {} },
+        createElement(Route, { path: '/', component: App })
       )
     )
 

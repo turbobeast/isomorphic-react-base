@@ -3,7 +3,7 @@ import { v4 } from 'node-uuid'
 
 const defaultState = {
   pending: false,
-  posts: []
+  posts: [],
 }
 
 export const posts = (state = defaultState, action) => {
@@ -12,7 +12,7 @@ export const posts = (state = defaultState, action) => {
       return Object.assign({}, state, { pending: true })
     case actions.POSTS_RECEIVED:
       return Object.assign({}, state, { pending: false }, {
-        posts: [...action.payload.map((post) => Object.assign({}, post, { id: v4() }))]
+        posts: [...action.payload.map((post) => Object.assign({}, post, { id: v4() }))],
       })
     default:
       return state

@@ -1,8 +1,9 @@
 require('babel-register')({
-  extensions: ['.js']
+  extensions: ['.js'],
 })
 
 const React = require('react')
+const { createElement } = React
 const path = require('path')
 const express = require('express')
 const { renderToString } = require('react-dom/server')
@@ -11,13 +12,12 @@ const { Provider } = require('react-redux')
 
 const App = require('./src/js/components/app').default
 const { store } = require('./src/js/store')
-const PageTemplate = require('./src/views/html')
+const pageTemplate = require('./src/views/html')
 
-const app = express();
-const port = 8080;
+const app = express()
+const port = 8080
 
-function bootstrap (path, store) {
-  const { createElement } = React
+function bootstrap(location) {
   /*
     <Provider store={store}>
       <Router>
@@ -28,26 +28,21 @@ function bootstrap (path, store) {
 
   const reactEntryPoint =
     createElement(Provider, { store },
-      createElement(StaticRouter, { location: path, context: {} },
+      createElement(StaticRouter, { location, context: {} },
         createElement(Route, { path: '/', component: App })
       )
     )
-  
+
   return renderToString(reactEntryPoint)
 }
 
-function handleRender (req, res) {
-  console.log('handleRender')
-  let html
-
-  let unsubscribe = store.subscribe(() => {    
-    let state = store.getState()
-    console.log(state.posts.pending)
-
+function handleRender(req, res) {
+  const unsubscribe = store.subscribe(() => {
+    const state = store.getState()
     if (!state.posts.pending) {
       unsubscribe()
-      let html = bootstrap(req.url, store)
-      res.send(PageTemplate(html, state))
+      const html = bootstrap(req.url)
+      res.send(pageTemplate(html, state))
     }
   })
 
@@ -56,8 +51,8 @@ function handleRender (req, res) {
   store.dispatch({ type: 'SERVER_REQUEST' })
 }
 
-app.use('/public', express.static( path.join(__dirname, 'public') ) )
+app.use('/public', express.static(path.join(__dirname, 'public')))
 app.get('/favicon.ico', (req, res) => { res.end() })
 app.use(handleRender)
 
-app.listen(port, () => { console.log('app listening on port ' + port) })
+app.listen(port, () => { console.log(`app listening on port ${port}`) })

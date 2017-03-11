@@ -1,5 +1,5 @@
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
+require('es6-promise').polyfill()
+require('isomorphic-fetch')
 
 const POSTS_API = 'https://jsonplaceholder.typicode.com/posts'
 export const POSTS_RECEIVED = 'postsreceived'
@@ -19,7 +19,7 @@ export const getPosts = () => (dispatch, getState) => {
     .then((posts) => {
       dispatch({
         type: POSTS_RECEIVED,
-        payload: posts
+        payload: posts,
       })
       return posts
     })

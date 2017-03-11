@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { getPosts } from '../actions'
 
 class Projects extends Component {
-  componentWillMount () {
+  componentWillMount() {
     this.props.getPosts()
   }
 
-  render () {
+  render() {
     return (
       <section>
         <h2>projects are very difficult</h2>
@@ -19,9 +19,13 @@ class Projects extends Component {
   }
 }
 
+Projects.propTypes = {
+  getPosts: React.PropTypes.func.isRequired,
+  posts: React.PropTypes.array,
+}
+
 export default connect(
   ({ posts }) => ({ posts: posts.posts }),
-  (dispatch) => ({
-    getPosts: () => dispatch(getPosts())
-  }))(Projects)
+  (dispatch) => ({ getPosts: () => dispatch(getPosts()) }
+))(Projects)
 

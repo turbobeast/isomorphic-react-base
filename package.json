@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf public/",
     "setup": "mkdir -p public/css && mkdir -p public/js",
-    "lint": "./node_modules/eslint/bin/eslint.js src/js/*",
+    "lint": "./node_modules/eslint/bin/eslint.js server.js src/js/*",
     "css": "sass src/css/main.scss public/css/main.css",
     "js": "browserify src/js/main.js -o public/js/main.js -t [ babelify --presets [ es2015 react ] ]",
     "build": "npm run setup && npm run css && npm run js",
@@ -21,14 +21,18 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "dotenv": "^2.0.0",
+    "es6-promise": "^4.1.0",
     "express": "^4.13.4",
+    "isomorphic-fetch": "^2.2.1",
+    "node-uuid": "^1.4.7",
     "qs": "^6.4.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
     "react-router": "^4.0.0-beta.8",
     "react-router-dom": "^4.0.0-beta.8",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "eslint": "^2.8.0",

@@ -8,7 +8,7 @@ const defaultState = [
 
 export const pages = (state = defaultState, action) => {
   switch (action.type) {
-    case actions.RECEIVED_PAGES:
+    case actions.PAGES_RECEIVED:
       return [...state, action.payload]
     default:
       return state

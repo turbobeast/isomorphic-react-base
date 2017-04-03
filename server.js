@@ -1,8 +1,9 @@
 require('babel-register')({
-  extensions: ['.js']
+  extensions: ['.js'],
 })
 
 const React = require('react')
+const { createElement } = React
 const path = require('path')
 const express = require('express')
 const { renderToString } = require('react-dom/server')
@@ -11,14 +12,12 @@ const { Provider } = require('react-redux')
 
 const App = require('./src/js/components/app').default
 const { store } = require('./src/js/store')
-const PageTemplate = require('./src/views/html')
+const pageTemplate = require('./src/views/html')
 
-const app = express();
-const port = 8080;
+const app = express()
+const port = 8080
 
-function handleRender (req, res) {
-  const preloadState = store.getState()
-
+function bootstrap(location) {
   /*
     <Provider store={store}>
       <Router>
@@ -26,20 +25,34 @@ function handleRender (req, res) {
       </Router>
     </Provider>
   */
-  const { createElement } = React
+
   const reactEntryPoint =
     createElement(Provider, { store },
-      createElement(StaticRouter, { location: req.url, context: {} },
+      createElement(StaticRouter, { location, context: {} },
         createElement(Route, { path: '/', component: App })
       )
     )
 
-  const html = renderToString(reactEntryPoint)
-  res.send(PageTemplate(html, preloadState))
+  return renderToString(reactEntryPoint)
 }
 
-app.use('/public', express.static( path.join(__dirname, 'public') ) )
+function handleRender(req, res) {
+  const unsubscribe = store.subscribe(() => {
+    const state = store.getState()
+    if (!state.posts.pending) {
+      unsubscribe()
+      const html = bootstrap(req.url)
+      res.send(pageTemplate(html, state))
+    }
+  })
+
+  // start the redux ball rolling
+  bootstrap(req.url, store)
+  store.dispatch({ type: 'SERVER_REQUEST' })
+}
+
+app.use('/public', express.static(path.join(__dirname, 'public')))
 app.get('/favicon.ico', (req, res) => { res.end() })
 app.use(handleRender)
 
-app.listen(port, () => { console.log('app listening on port ' + port) })
+app.listen(port, () => { console.log(`app listening on port ${port}`) })

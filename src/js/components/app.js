@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 const { Link } = require('react-router-dom')
 import Projects from './projects'
 import About from './about'
 import Contact from './contact'
 
-export function App({ pages }) {
+function App({ pages }) {
   return (
     <div>
       <h1>Isomorphic App</h1>

@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const ManifestPlugin = require('webpack-manifest-plugin')
 
 module.exports = {
   entry: './src/js/main.js',
@@ -24,5 +25,14 @@ module.exports = {
         exclude: /node_modules/,
       }
     ]
-  }
+  },
+  plugins: [
+    new ManifestPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin()
+  ]
 }

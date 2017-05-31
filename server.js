@@ -10,6 +10,7 @@ const express = require('express')
 const { renderToString } = require('react-dom/server')
 const { StaticRouter, Route } = require('react-router')
 const { Provider } = require('react-redux')
+const manifest = require('./public/js/manifest.json')
 
 const App = require('./src/js/components/app').default
 const { store } = require('./src/js/store')
@@ -43,7 +44,7 @@ function handleRender(req, res) {
     if (!state.posts.pending) {
       unsubscribe()
       const html = bootstrap(req.url)
-      res.send(pageTemplate(html, state))
+      res.send(pageTemplate(html, state, manifest['main.js']))
     }
   })
 

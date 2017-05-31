@@ -8,7 +8,7 @@
     "setup": "mkdir -p public/css && mkdir -p public/js",
     "lint": "./node_modules/eslint/bin/eslint.js server.js src/js/*",
     "css": "sass src/css/main.scss public/css/main.css",
-    "build": "webpack",
+    "build": "yarn clean && yarn setup && yarn webpack -p && yarn css",
     "start": "node server.js"
   },
   "author": "George Michael Faust <georgemichaelfaust@gmail.com> (http://georgemichaelfaust.com/)",
@@ -24,7 +24,8 @@
     "express": "^4.13.4",
     "isomorphic-fetch": "^2.2.1",
     "node-uuid": "^1.4.7",
-    "react": "^15.4.2",
+    "prop-types": "^15.5.10",
+    "react": "15.5",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
     "react-router": "^4.0.0-beta.8",
@@ -41,6 +42,7 @@
     "eslint-config-airbnb": "^7.0.0",
     "eslint-plugin-jsx-a11y": "0.6.2",
     "eslint-plugin-react": "^5.0.1",
-    "flow-bin": "^0.47.0"
+    "flow-bin": "^0.47.0",
+    "webpack-manifest-plugin": "^1.1.0"
   }
 }

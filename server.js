@@ -1,5 +1,6 @@
 require('babel-register')({
   extensions: ['.js'],
+  presets: ['es2015'],
 })
 
 const React = require('react')
@@ -55,4 +56,4 @@ app.use('/public', express.static(path.join(__dirname, 'public')))
 app.get('/favicon.ico', (req, res) => { res.end() })
 app.use(handleRender)
 
-app.listen(port, () => { console.log(`app listening on port ${port}`) })
+app.listen(port, () => { console.log(`app listening on port ${port}`) }) // eslint-disable-line

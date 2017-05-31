@@ -1,3 +1,4 @@
+// @flow
 import * as actions from '../actions'
 
 const defaultState = [
@@ -6,7 +7,7 @@ const defaultState = [
   { key: 'projects', title: 'Projects', path: '/Projects' },
 ]
 
-export const pages = (state = defaultState, action) => {
+export const pages = (state: Array<Object> = defaultState, action: Object) => {
   switch (action.type) {
     case actions.PAGES_RECEIVED:
       return [...state, action.payload]

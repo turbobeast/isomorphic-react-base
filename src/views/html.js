@@ -1,4 +1,4 @@
-module.exports = (appHTML, initialState) => (
+module.exports = (appHTML, initialState, jsPath) => (
 `<!doctype html>
   <html lang="en">
     <head>
@@ -11,7 +11,7 @@ module.exports = (appHTML, initialState) => (
       <script>
         window.__GLOBAL_INITIAL_STATE__ = ${JSON.stringify(initialState).replace(/</g, '\\u003c')}
       </script>
-      <script src="/public/js/main.js"></script>
+      <script src="/public/js/${jsPath}"></script>
     </body>
   </html>`
 )

@@ -8,36 +8,41 @@
     "setup": "mkdir -p public/css && mkdir -p public/js",
     "lint": "./node_modules/eslint/bin/eslint.js server.js src/js/*",
     "css": "sass src/css/main.scss public/css/main.css",
-    "js": "browserify src/js/main.js -o public/js/main.js -t [ babelify --presets [ es2015 react ] ]",
-    "build": "npm run setup && npm run css && npm run js",
+    "build": "yarn clean && yarn setup && yarn webpack -p && yarn css",
     "start": "node server.js"
   },
   "author": "George Michael Faust <georgemichaelfaust@gmail.com> (http://georgemichaelfaust.com/)",
   "license": "MIT",
   "dependencies": {
+    "babel-loader": "^7.0.0",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
     "babel-register": "^6.23.0",
-    "babelify": "^7.2.0",
-    "browserify": "^13.0.0",
     "dotenv": "^2.0.0",
     "es6-promise": "^4.1.0",
+    "eslint-loader": "^1.7.1",
     "express": "^4.13.4",
     "isomorphic-fetch": "^2.2.1",
     "node-uuid": "^1.4.7",
-    "qs": "^6.4.0",
-    "react": "^15.4.2",
+    "prop-types": "^15.5.10",
+    "react": "15.5",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
     "react-router": "^4.0.0-beta.8",
     "react-router-dom": "^4.0.0-beta.8",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "webpack": "^2.6.1"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "eslint": "^2.8.0",
     "eslint-config-airbnb": "^7.0.0",
     "eslint-plugin-jsx-a11y": "0.6.2",
-    "eslint-plugin-react": "^5.0.1"
+    "eslint-plugin-react": "^5.0.1",
+    "flow-bin": "^0.47.0",
+    "webpack-manifest-plugin": "^1.1.0"
   }
 }

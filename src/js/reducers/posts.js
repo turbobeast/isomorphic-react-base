@@ -1,3 +1,4 @@
+// @flow
 import * as actions from '../actions'
 import { v4 } from 'node-uuid'
 
@@ -6,7 +7,7 @@ const defaultState = {
   posts: [],
 }
 
-export const posts = (state = defaultState, action) => {
+export const posts = (state: Object = defaultState, action: Object) => {
   switch (action.type) {
     case actions.POSTS_REQUESTED:
       return Object.assign({}, state, { pending: true })

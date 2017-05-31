@@ -1,13 +1,14 @@
+// @flow
 require('es6-promise').polyfill()
 require('isomorphic-fetch')
 
 const POSTS_API = 'https://jsonplaceholder.typicode.com/posts'
+
 export const POSTS_RECEIVED = 'postsreceived'
 export const POSTS_REQUESTED = 'postsrequested'
-
 export const PAGES_RECEIVED = 'pagesreceived'
 
-export const getPosts = () => (dispatch, getState) => {
+export const getPosts = () => (dispatch: Function, getState: Function) => {
   const state = getState()
   if (state.posts.posts.length) {
     return Promise.resolve(state.posts.posts)
